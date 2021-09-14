@@ -1,16 +1,13 @@
 package org.approvaltests;
 
+import com.spun.util.ArrayUtils;
+import com.spun.util.FormattedException;
+import com.spun.util.JsonUtils;
+import com.spun.util.ObjectUtils;
+import com.spun.util.StringUtils;
 import com.spun.util.persistence.ExecutableCommand;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
+import com.spun.util.persistence.Loader;
+import com.spun.util.persistence.SqlLoader;
 import org.approvaltests.approvers.ApprovalApprover;
 import org.approvaltests.approvers.FileApprover;
 import org.approvaltests.core.ApprovalFailureReporter;
@@ -26,13 +23,16 @@ import org.lambda.actions.Action0;
 import org.lambda.functions.Function1;
 import org.lambda.query.Query;
 
-import com.spun.util.ArrayUtils;
-import com.spun.util.FormattedException;
-import com.spun.util.JsonUtils;
-import com.spun.util.ObjectUtils;
-import com.spun.util.StringUtils;
-import com.spun.util.persistence.Loader;
-import com.spun.util.persistence.SqlLoader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.SortedMap;
 
 public class Approvals
 {
@@ -226,6 +226,14 @@ public class Approvals
     verify(map, new Options());
   }
   public static void verify(Map<?, ?> map, Options options)
+  {
+    verify(StringUtils.toString(map), options);
+  }
+  public static void verify(SortedMap<?, ?> map)
+  {
+    verify(map, new Options());
+  }
+  public static void verify(SortedMap<?, ?> map, Options options)
   {
     verify(StringUtils.toString(map), options);
   }

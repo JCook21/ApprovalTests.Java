@@ -1,5 +1,8 @@
 package com.spun.util;
 
+import org.lambda.functions.Function1;
+import org.lambda.query.Query;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -10,13 +13,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.SortedMap;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import org.lambda.functions.Function1;
-import org.lambda.query.Query;
 
 /**
  * A static class of convenience functions for database access
@@ -564,6 +564,15 @@ public class StringUtils
     for (Object key : keySet)
     {
       b.append(String.format("%s : %s \n", key, map.get(key)));
+    }
+    return b.toString();
+  }
+  public static String toString(SortedMap<?, ?> map)
+  {
+    StringBuffer b = new StringBuffer();
+    for (Map.Entry<?, ?> entry : map.entrySet())
+    {
+      b.append(String.format("%s : %s \n", entry.getKey(), entry.getValue()));
     }
     return b.toString();
   }
